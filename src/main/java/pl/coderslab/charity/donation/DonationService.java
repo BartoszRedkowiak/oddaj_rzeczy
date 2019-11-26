@@ -18,4 +18,8 @@ public class DonationService {
         return donationInterface.totalQuantity();
     }
 
+    public Long getDonatedInstCount(){
+        return donationInterface.countDonatedInstitutions();
+    }
+
 }
