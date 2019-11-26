@@ -1,6 +1,5 @@
 package pl.coderslab.charity.category;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

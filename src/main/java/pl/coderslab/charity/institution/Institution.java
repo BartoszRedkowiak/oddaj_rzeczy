@@ -1,6 +1,5 @@
 package pl.coderslab.charity.institution;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
