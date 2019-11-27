@@ -3,265 +3,236 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Document</title>
-
-    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
+    <jsp:include page="0_header.jsp"/>
 </head>
 <body>
-<jsp:include page="0_header.jsp"/>
 
+<header class="header--form-page">
+    <jsp:include page="0_navbar.jsp"/>
 
-<form:form modelAttribute="donation" method="post">
-    <section class="form--steps">
-        <div class="form--steps-instructions">
-            <div class="form--steps-container">
-                <h3>Ważne!</h3>
-                <p data-step="1" class="active">
-                    Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
-                    wiedzieć komu najlepiej je przekazać.
-                </p>
-                <p data-step="2">
-                    Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
-                    wiedzieć komu najlepiej je przekazać.
-                </p>
-                <p data-step="3">
-                    Wybierz jedną, do
-                    której trafi Twoja przesyłka.
-                </p>
-                <p data-step="4">Podaj adres oraz termin odbioru rzeczy.</p>
+    <div class="slogan container container--90">
+        <div class="slogan--item">
+            <h1>
+                Oddaj rzeczy, których już nie chcesz<br/>
+                <span class="uppercase">potrzebującym</span>
+            </h1>
+
+            <div class="slogan--steps">
+                <div class="slogan--steps-title">Wystarczą 4 proste kroki:</div>
+                <ul class="slogan--steps-boxes">
+                    <li>
+                        <div><em>1</em><span>Wybierz rzeczy</span></div>
+                    </li>
+                    <li>
+                        <div><em>2</em><span>Spakuj je w worki</span></div>
+                    </li>
+                    <li>
+                        <div><em>3</em><span>Wybierz fundację</span></div>
+                    </li>
+                    <li>
+                        <div><em>4</em><span>Zamów kuriera</span></div>
+                    </li>
+                </ul>
             </div>
         </div>
+    </div>
+</header>
 
+<section class="form--steps">
+    <div class="form--steps-instructions">
         <div class="form--steps-container">
-            <div class="form--steps-counter">Krok <span>1</span>/4</div>
+            <h3>Ważne!</h3>
+            <p data-step="1" class="active">
+                Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
+                wiedzieć komu najlepiej je przekazać.
+            </p>
+            <p data-step="2">
+                Uzupełnij szczegóły dotyczące Twoich rzeczy. Dzięki temu będziemy
+                wiedzieć komu najlepiej je przekazać.
+            </p>
+            <p data-step="3">
+                Wybierz jedną, do
+                której trafi Twoja przesyłka.
+            </p>
+            <p data-step="4">Podaj adres oraz termin odbioru rzeczy.</p>
+        </div>
+    </div>
 
-            <form action="form-confirmation.html" method="post">
-                <!-- STEP 1: class .active is switching steps -->
-                <div data-step="1" class="active">
-                    <h3>Zaznacz co chcesz oddać:</h3>
+    <div class="form--steps-container">
+        <div class="form--steps-counter">Krok <span>1</span>/4</div>
+        <form:form modelAttribute="donation" method="post">
+            <!-- STEP 1: class .active is switching steps -->
+            <div data-step="1" class="active">
+                <h3>Zaznacz co chcesz oddać:</h3>
 
+
+                <c:forEach items="${categories}" var="category">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <input
-                                    type="checkbox"
-                                    name="categories"
-                                    value="clothes-to-use"
-                            />
+                            <input type="checkbox" name="categories" value="${category.id}"/>
                             <span class="checkbox"></span>
                             <span class="description"
-                            >ubrania, które nadają się do ponownego użycia</span
-                            >
+                            >${category.name}</span>
                         </label>
                     </div>
+                </c:forEach>
 
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input
-                                    type="checkbox"
-                                    name="categories"
-                                    value="clothes-useless"
-                            />
-                            <span class="checkbox"></span>
-                            <span class="description">ubrania, do wyrzucenia</span>
-                        </label>
-                    </div>
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn next-step">Dalej</button>
+                </div>
+            </div>
 
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input type="checkbox" name="categories" value="toys" />
-                            <span class="checkbox"></span>
-                            <span class="description">zabawki</span>
-                        </label>
-                    </div>
+            <!-- STEP 2 -->
+            <div data-step="2">
+                <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
 
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input type="checkbox" name="categories" value="books" />
-                            <span class="checkbox"></span>
-                            <span class="description">książki</span>
-                        </label>
-                    </div>
-
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input type="checkbox" name="categories" value="other" />
-                            <span class="checkbox"></span>
-                            <span class="description">inne</span>
-                        </label>
-                    </div>
-
-                    <div class="form-group form-group--buttons">
-                        <button type="button" class="btn next-step">Dalej</button>
-                    </div>
+                <div class="form-group form-group--inline">
+                    <form:label path="quantity">Liczba 60l worków:</form:label>
+                    <form:input path="quantity" type="number" step="1" min="1" id="quantityId"/>
                 </div>
 
-                <!-- STEP 2 -->
-                <div data-step="2">
-                    <h3>Podaj liczbę 60l worków, w które spakowałeś/aś rzeczy:</h3>
-
-                    <div class="form-group form-group--inline">
-                        <label for="quantityId">Liczba 60l worków:</label>
-                        <form:input type="number" step="1" min="1" path="quantity" id="quantityId"/>
-                    </div>
-
-                    <div class="form-group form-group--buttons">
-                        <button type="button" class="btn prev-step">Wstecz</button>
-                        <button type="button" class="btn next-step">Dalej</button>
-                    </div>
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="button" class="btn next-step">Dalej</button>
                 </div>
+            </div>
 
-                <!-- STEP 3 -->
-                <div data-step="3">
-                    <h3>Wybierz organizacje, której chcesz pomóc:</h3>
+            <!-- STEP 3 -->
+            <div data-step="3">
+                <h3>Wybierz organizacje, której chcesz pomóc:</h3>
 
+                <c:forEach items="${institutions}" var="institution">
                     <div class="form-group form-group--checkbox">
                         <label>
-                            <input type="radio" name="organization" value="old" />
+                            <input type="radio" name="institution" value="${institution.id}"/>
                             <span class="checkbox radio"></span>
                             <span class="description">
-                  <div class="title">Fundacja “Bez domu”</div>
+                  <div class="title">Fundacja “${institution.name}”</div>
                   <div class="subtitle">
-                    Cel i misja: Pomoc dla osób nie posiadających miejsca
-                    zamieszkania
+                    Cel i misja: ${institution.description}
                   </div>
                 </span>
                         </label>
                     </div>
+                </c:forEach>
 
-                    <div class="form-group form-group--checkbox">
-                        <label>
-                            <input type="radio" name="organization" value="old" />
-                            <span class="checkbox radio"></span>
-                            <span class="description">
-                  <div class="title">Fundacja “Dla dzieci"</div>
-                  <div class="subtitle">
-                    Cel i misja: Pomoc osobom znajdującym się w trudnej sytuacji
-                    życiowej.
-                  </div>
-                </span>
-                        </label>
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="button" class="btn next-step">Dalej</button>
+                </div>
+            </div>
+
+            <!-- STEP 4 -->
+            <div data-step="4">
+                <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
+
+                <div class="form-section form-section--columns">
+                    <div class="form-section--column">
+                        <h4>Adres odbioru</h4>
+                        <div class="form-group form-group--inline">
+                            <form:label path="street">Ulica</form:label>
+                            <form:input path="street"/>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <form:label path="city">Miasto</form:label>
+                            <form:input path="city" id="cityId"/>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <form:label path="zipCode">Kod pocztowy</form:label>
+                            <form:input path="zipCode"/>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <label>
+                                Numer telefonu <input type="phone" name="phone"/>
+                            </label>
+                        </div>
                     </div>
 
-                    <div class="form-group form-group--buttons">
-                        <button type="button" class="btn prev-step">Wstecz</button>
-                        <button type="button" class="btn next-step">Dalej</button>
+                    <div class="form-section--column">
+                        <h4>Termin odbioru</h4>
+                        <div class="form-group form-group--inline">
+                            <form:label path="pickUpDate">Data</form:label>
+                            <form:input path="pickUpDate" type="date"/>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <form:label path="pickUpTime">Godzina</form:label>
+                            <form:input path="pickUpTime" type="time"/>
+                        </div>
+
+                        <div class="form-group form-group--inline">
+                            <form:label path="pickUpComment">Uwagi dla kuriera</form:label>
+                            <form:textarea path="pickUpComment" rows="5"/>
+                        </div>
                     </div>
                 </div>
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="button" class="btn next-step">Dalej</button>
+                </div>
+            </div>
 
-                <!-- STEP 4 -->
-                <div data-step="4">
-                    <h3>Podaj adres oraz termin odbioru rzecz przez kuriera:</h3>
+            <!-- STEP 6 -->
+            <div data-step="5">
+                <h3>Podsumowanie Twojej darowizny</h3>
+
+                <div class="summary">
+                    <div class="form-section">
+                        <h4>Oddajesz:</h4>
+                        <ul>
+                            <li>
+                                <span class="icon icon-bag"></span>
+                                <span class="summary--text"
+                                >4 worki ubrań w dobrym stanie dla dzieci</span
+                                >
+                            </li>
+
+                            <li>
+                                <span class="icon icon-hand"></span>
+                                <span class="summary--text"
+                                >Dla fundacji "Mam marzenie" w Warszawie</span
+                                >
+                            </li>
+                        </ul>
+                    </div>
 
                     <div class="form-section form-section--columns">
                         <div class="form-section--column">
-                            <h4>Adres odbioru</h4>
-                            <div class="form-group form-group--inline">
-                                <label for="streetId">Ulica</label>
-                                <form:input path="street" id="streetId"/>
-                            </div>
-
-                            <div class="form-group form-group--inline">
-                                <label for="cityId">Miasto</label>
-                                <form:input path="city" id="cityId"/>
-                            </div>
-
-                            <div class="form-group form-group--inline">
-                                <label for="zipCodeId">Kod pocztowy</label>
-                                <form:input path="zipCode" id="zipCodeId"/>
-                            </div>
-
-                            <div class="form-group form-group--inline">
-                                <label>
-                                    Numer telefonu <input type="phone" name="phone"/>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-section--column">
-                            <h4>Termin odbioru</h4>
-                            <div class="form-group form-group--inline">
-                                <label for="dateId">Data</label>
-                                <form:input type="date" path="pickUpDate" id="dateId"/>
-                            </div>
-
-                            <div class="form-group form-group--inline">
-                                <label for="timeId">Godzina</label>
-                                <form:input type="time" path="pickUpTime" id="timeId"/>
-                            </div>
-
-                            <div class="form-group form-group--inline">
-                                <label for="commentId">Uwagi dla kuriera</label>
-                                <form:textarea path="pickUpComment" rows="5" id="commentId"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group form-group--buttons">
-                        <button type="button" class="btn prev-step">Wstecz</button>
-                        <button type="button" class="btn next-step">Dalej</button>
-                    </div>
-                </div>
-
-                <!-- STEP 6 -->
-                <div data-step="5">
-                    <h3>Podsumowanie Twojej darowizny</h3>
-
-                    <div class="summary">
-                        <div class="form-section">
-                            <h4>Oddajesz:</h4>
+                            <h4>Adres odbioru:</h4>
                             <ul>
-                                <li>
-                                    <span class="icon icon-bag"></span>
-                                    <span class="summary--text"
-                                    >4 worki ubrań w dobrym stanie dla dzieci</span
-                                    >
-                                </li>
-
-                                <li>
-                                    <span class="icon icon-hand"></span>
-                                    <span class="summary--text"
-                                    >Dla fundacji "Mam marzenie" w Warszawie</span
-                                    >
-                                </li>
+                                <li>Prosta 51</li>
+                                <li>Warszawa</li>
+                                <li>99-098</li>
+                                <li>123 456 789</li>
                             </ul>
                         </div>
 
-                        <div class="form-section form-section--columns">
-                            <div class="form-section--column">
-                                <h4>Adres odbioru:</h4>
-                                <ul>
-                                    <li>Prosta 51</li>
-                                    <li>Warszawa</li>
-                                    <li>99-098</li>
-                                    <li>123 456 789</li>
-                                </ul>
-                            </div>
-
-                            <div class="form-section--column">
-                                <h4>Termin odbioru:</h4>
-                                <ul>
-                                    <li>13/12/2018</li>
-                                    <li>15:40</li>
-                                    <li>Brak uwag</li>
-                                </ul>
-                            </div>
+                        <div class="form-section--column">
+                            <h4>Termin odbioru:</h4>
+                            <ul>
+                                <li>13/12/2018</li>
+                                <li>15:40</li>
+                                <li>Brak uwag</li>
+                            </ul>
                         </div>
                     </div>
-
-                    <div class="form-group form-group--buttons">
-                        <button type="button" class="btn prev-step">Wstecz</button>
-                        <button type="submit" class="btn">Potwierdzam</button>
-                    </div>
                 </div>
-            </form>
-        </div>
-    </section>
-</form:form>
+
+                <div class="form-group form-group--buttons">
+                    <button type="button" class="btn prev-step">Wstecz</button>
+                    <button type="submit" class="btn">Potwierdzam</button>
+
+                </div>
+            </div>
+        </form:form>
+    </div>
+</section>
+
 
 <jsp:include page="0_footer.jsp"/>
 
-<script src="<c:url value="/resources/js/app.js"/>"></script>
 </body>
 </html>
