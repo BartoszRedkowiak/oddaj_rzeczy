@@ -22,4 +22,8 @@ public class DonationService {
         return donationInterface.countDonatedInstitutions();
     }
 
+    public void createDonation(Donation donation){
+        donationInterface.save(donation);
+    }
+
 }
