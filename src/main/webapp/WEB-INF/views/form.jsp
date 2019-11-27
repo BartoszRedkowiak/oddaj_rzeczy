@@ -4,6 +4,7 @@
 <html>
 <head>
     <jsp:include page="0_header.jsp"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -71,8 +72,7 @@
                         <label>
                             <input type="checkbox" name="categories" value="${category.id}"/>
                             <span class="checkbox"></span>
-                            <span class="description"
-                            >${category.name}</span>
+                            <span class="description">${category.name}</span>
                         </label>
                     </div>
                 </c:forEach>
@@ -89,7 +89,7 @@
 
                 <div class="form-group form-group--inline">
                     <form:label path="quantity">Liczba 60l worków:</form:label>
-                    <form:input path="quantity" type="number" step="1" min="1" id="quantityId"/>
+                    <form:input path="quantity" type="number" step="1" min="1" id="formQuantity"/>
                     <form:errors path="quantity" element="div" cssClass="formError"/>
                 </div>
 
@@ -134,26 +134,25 @@
                         <h4>Adres odbioru</h4>
                         <div class="form-group form-group--inline">
                             <form:label path="street">Ulica</form:label>
-                            <form:input path="street"/>
+                            <form:input path="street" id="formStreet"/>
                             <form:errors path="street" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <form:label path="city">Miasto</form:label>
-                            <form:input path="city" id="cityId"/>
+                            <form:input path="city" id="formCity"/>
                             <form:errors path="city" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <form:label path="zipCode">Kod pocztowy</form:label>
-                            <form:input path="zipCode"/>
+                            <form:input path="zipCode" id="formZipCode"/>
                             <form:errors path="zipCode" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
-                            <label>
-                                Numer telefonu <input type="phone" name="phone"/>
-                            </label>
+                            <label for="formPhone">Numer telefonu</label>
+                            <input type="phone" name="phone" id="formPhone"/>
                         </div>
                     </div>
 
@@ -161,19 +160,19 @@
                         <h4>Termin odbioru</h4>
                         <div class="form-group form-group--inline">
                             <form:label path="pickUpDate">Data</form:label>
-                            <form:input path="pickUpDate" type="date"/>
+                            <form:input path="pickUpDate" type="date" id="formDate"/>
                             <form:errors path="pickUpDate" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <form:label path="pickUpTime">Godzina</form:label>
-                            <form:input path="pickUpTime" type="time"/>
+                            <form:input path="pickUpTime" type="time" id="formTime"/>
                             <form:errors path="pickUpTime" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <form:label path="pickUpComment">Uwagi dla kuriera</form:label>
-                            <form:textarea path="pickUpComment" rows="5"/>
+                            <form:textarea path="pickUpComment" rows="5" id="formComment"/>
                             <form:errors path="pickUpComment" element="div" cssClass="formError"/>
                         </div>
                     </div>
@@ -194,16 +193,12 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text"
-                                >4 worki ubrań w dobrym stanie dla dzieci</span
-                                >
+                                <span class="summary--text" id="summItems">4 worki ubrań w dobrym stanie dla dzieci</span>
                             </li>
 
                             <li>
                                 <span class="icon icon-hand"></span>
-                                <span class="summary--text"
-                                >Dla fundacji "Mam marzenie" w Warszawie</span
-                                >
+                                <span class="summary--text">Dla fundacji "<span id="summInstitution">Mam marzenie</span>" w Warszawie</span>
                             </li>
                         </ul>
                     </div>
@@ -212,19 +207,19 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-                                <li>Prosta 51</li>
-                                <li>Warszawa</li>
-                                <li>99-098</li>
-                                <li>123 456 789</li>
+                                <li>Adres:&nbsp<span id="summStreet">brak danych</span></li>
+                                <li>Miasto:&nbsp<span id="summCity">brak danych</span></li>
+                                <li>Kod Zip:&nbsp<span id="summZipCode">brak danych</span></li>
+                                <li>Nr tel.:&nbsp<span id="summPhone">brak danych</span></li>
                             </ul>
                         </div>
 
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
                             <ul>
-                                <li>13/12/2018</li>
-                                <li>15:40</li>
-                                <li>Brak uwag</li>
+                                <li>Data:&nbsp<span id="summDate">brak danych</span></li>
+                                <li>Godzina:&nbsp<span id="summTime">brak danych</span></li>
+                                <li>Uwagi:&nbsp<span id="summComment">brak danych</span></li>
                             </ul>
                         </div>
                     </div>
@@ -242,6 +237,7 @@
 
 
 <jsp:include page="0_footer.jsp"/>
+<script src="<c:url value="/resources/js/summary.js"/>"></script>
 
 </body>
 </html>
