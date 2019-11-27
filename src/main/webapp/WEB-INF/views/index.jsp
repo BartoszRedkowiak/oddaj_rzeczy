@@ -5,15 +5,22 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Document</title>
-
-    <link rel="stylesheet" href="<c:url value="/resources/css/style.css"/>"/>
+<jsp:include page="0_header.jsp"/>
 </head>
 <body>
-<jsp:include page="0_header.jsp"/>
+
+<header class="header--main-page">
+    <jsp:include page="0_navbar.jsp"/>
+
+    <div class="slogan container container--90">
+        <div class="slogan--item">
+            <h1>
+                Zacznij pomagać!<br/>
+                Oddaj niechciane rzeczy w zaufane ręce
+            </h1>
+        </div>
+    </div>
+</header>
 
 <section class="stats">
     <div class="container container--85">
@@ -103,6 +110,5 @@
 
 <jsp:include page="0_footer.jsp"/>
 
-<script src="<c:url value="/resources/js/app.js"/>"></script>
 </body>
 </html>
