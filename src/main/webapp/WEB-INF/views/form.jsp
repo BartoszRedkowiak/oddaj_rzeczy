@@ -76,6 +76,7 @@
                         </label>
                     </div>
                 </c:forEach>
+                <form:errors path="categories" element="div" cssClass="formError"/>
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn next-step">Dalej</button>
@@ -89,6 +90,7 @@
                 <div class="form-group form-group--inline">
                     <form:label path="quantity">Liczba 60l worków:</form:label>
                     <form:input path="quantity" type="number" step="1" min="1" id="quantityId"/>
+                    <form:errors path="quantity" element="div" cssClass="formError"/>
                 </div>
 
                 <div class="form-group form-group--buttons">
@@ -115,6 +117,7 @@
                         </label>
                     </div>
                 </c:forEach>
+                <form:errors path="institution" element="div" cssClass="formError"/>
 
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
@@ -132,16 +135,19 @@
                         <div class="form-group form-group--inline">
                             <form:label path="street">Ulica</form:label>
                             <form:input path="street"/>
+                            <form:errors path="street" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <form:label path="city">Miasto</form:label>
                             <form:input path="city" id="cityId"/>
+                            <form:errors path="city" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <form:label path="zipCode">Kod pocztowy</form:label>
                             <form:input path="zipCode"/>
+                            <form:errors path="zipCode" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
@@ -156,16 +162,19 @@
                         <div class="form-group form-group--inline">
                             <form:label path="pickUpDate">Data</form:label>
                             <form:input path="pickUpDate" type="date"/>
+                            <form:errors path="pickUpDate" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <form:label path="pickUpTime">Godzina</form:label>
                             <form:input path="pickUpTime" type="time"/>
+                            <form:errors path="pickUpTime" element="div" cssClass="formError"/>
                         </div>
 
                         <div class="form-group form-group--inline">
                             <form:label path="pickUpComment">Uwagi dla kuriera</form:label>
                             <form:textarea path="pickUpComment" rows="5"/>
+                            <form:errors path="pickUpComment" element="div" cssClass="formError"/>
                         </div>
                     </div>
                 </div>
