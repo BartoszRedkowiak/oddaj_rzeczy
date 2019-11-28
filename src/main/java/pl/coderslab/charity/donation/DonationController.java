@@ -1,6 +1,7 @@
 package pl.coderslab.charity.donation;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,6 +34,7 @@ public class DonationController {
         model.addAttribute("institutions", institutionService.getAll());
     }
 
+    @Secured("ROLE_USER")
     @GetMapping("/new")
     public String newDonationGetAction(Model model) {
         model.addAttribute("donation", new Donation());
