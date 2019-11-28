@@ -203,7 +203,7 @@
 
                             <li>
                                 <span class="icon icon-hand"></span>
-                                <span class="summary--text" id="summInstitution">Nie wybrano instytucji</span>
+                                <span class="summary--text" id="summInstitution"></span>
                             </li>
                         </ul>
                     </div>
@@ -212,19 +212,19 @@
                         <div class="form-section--column">
                             <h4>Adres odbioru:</h4>
                             <ul>
-                                <li>Adres:&nbsp<span id="summStreet">brak danych</span></li>
-                                <li>Miasto:&nbsp<span id="summCity">brak danych</span></li>
-                                <li>Kod Zip:&nbsp<span id="summZipCode">brak danych</span></li>
-                                <li>Nr tel.:&nbsp<span id="summPhone">brak danych</span></li>
+                                <li id="summStreet"></li>
+                                <li id="summCity"></li>
+                                <li id="summZipCode"></li>
+                                <li id="summPhone"></li>
                             </ul>
                         </div>
 
                         <div class="form-section--column">
                             <h4>Termin odbioru:</h4>
                             <ul>
-                                <li>Data:&nbsp<span id="summDate">brak danych</span></li>
-                                <li>Godzina:&nbsp<span id="summTime">brak danych</span></li>
-                                <li>Uwagi:&nbsp<span id="summComment">brak danych</span></li>
+                                <li id="summDate"></li>
+                                <li id="summTime"></li>
+                                <li id="summComment"></li>
                             </ul>
                         </div>
                     </div>

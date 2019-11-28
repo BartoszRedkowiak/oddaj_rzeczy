@@ -1,47 +1,45 @@
 $(function () {
 
-    //Listeners to input fields in step 4 in form.jsp
-    var summaryTagsArray = [
-        $('#summStreet'),
-        $('#summCity'),
-        $('#summZipCode'),
-        $('#summPhone'),
-        $('#summDate'),
-        $('#summTime'),
-        $('#summComment')
+    var summaryFieldsArray = [
+        {
+            summaryField: $('#summStreet'),
+            formField: $('#formStreet'),
+            blankFormMessage: 'Brak adresu'
+        },
+        {
+            summaryField: $('#summCity'),
+            formField: $('#formCity'),
+            blankFormMessage: 'Brak nazwy miasta'
+        },
+        {
+            summaryField: $('#summZipCode'),
+            formField: $('#formZipCode'),
+            blankFormMessage: 'Brak kodu Zip'
+        },
+        {
+            summaryField: $('#summPhone'),
+            formField: $('#formPhone'),
+            blankFormMessage: 'Brak numeru telefonu'
+        },
+        {
+            summaryField: $('#summDate'),
+            formField: $('#formDate'),
+            blankFormMessage: 'Brak daty'
+        },
+        {
+            summaryField: $('#summTime'),
+            formField: $('#formTime'),
+            blankFormMessage: 'Brak godziny'
+        },
+        {
+            summaryField: $('#summComment'),
+            formField: $('#formComment'),
+            blankFormMessage: 'Brak uwag'
+        }
     ];
 
-    var formTagsArray = [
-        $('#formStreet'),
-        $('#formCity'),
-        $('#formZipCode'),
-        $('#formPhone'),
-        $('#formDate'),
-        $('#formTime'),
-        $('#formComment')
-    ];
-
-    var addSummaryListener = function (inputTag, outputTag) {
-        $(inputTag).on('change', function () {
-            var inputValue = $(inputTag).val();
-            if (inputValue === null || inputValue === '') {
-                $(outputTag).text('brak danych');
-            } else {
-                $(outputTag).text(inputValue);
-            }
-        })
-    };
-
-    for (var i = 0; i < formTagsArray.length; i++) {
-        addSummaryListener(formTagsArray[i], summaryTagsArray[i])
-    }
-
-    //Listener to input data from steps 1-3 into summary
+    //Listener to input data from steps 1-4 into summary
     $('#summaryBtn').on('click', function () {
-        //Update institution name
-        var institutionName = $('input[name=institution]:checked').next().next().find('#formInstitution').text();
-        $('#summInstitution').text(institutionStringBuilder(institutionName));
-
         //Gather quantity and array of categories
         var quantity = $('#formQuantity').val();
         var categories = $('input[name=categories]:checked').next().next();
@@ -61,6 +59,21 @@ $(function () {
             element.text(category);
             list.append(element);
         }
+
+        //Update institution name
+        var institutionName = $('input[name=institution]:checked').next().next().find('#formInstitution').text();
+        $('#summInstitution').text(institutionStringBuilder(institutionName));
+
+        //Update information from step 4
+        for (var element of summaryFieldsArray){
+            var input = element.formField.val();
+            if (input === null || input === ''){
+                element.summaryField.text(element.blankFormMessage);
+            } else {
+                element.summaryField.text(input);
+            }
+        }
+
     });
 
     function institutionStringBuilder(name) {
@@ -68,7 +81,7 @@ $(function () {
         if (name === null || name === '' ){
             result = 'Nie wybrano instytucji';
         } else {
-            result = 'Dla fundacji "' + institutionName + '" w Warszawie';
+            result = 'Dla fundacji "' + name + '" w Warszawie';
         }
         return result;
     }
