@@ -109,7 +109,11 @@
                             <input type="radio" name="institution" value="${institution.id}"/>
                             <span class="checkbox radio"></span>
                             <span class="description">
-                  <div class="title">Fundacja “${institution.name}”</div>
+                  <div class="title">
+                      <span>Fundacja “</span>
+                      <span id="formInstitution">${institution.name}</span>
+                      <span>”</span>
+                  </div>
                   <div class="subtitle">
                     Cel i misja: ${institution.description}
                   </div>
@@ -179,11 +183,11 @@
                 </div>
                 <div class="form-group form-group--buttons">
                     <button type="button" class="btn prev-step">Wstecz</button>
-                    <button type="button" class="btn next-step">Dalej</button>
+                    <button type="button" class="btn next-step" id="summaryBtn">Dalej</button>
                 </div>
             </div>
 
-            <!-- STEP 6 -->
+            <!-- STEP 5 -->
             <div data-step="5">
                 <h3>Podsumowanie Twojej darowizny</h3>
 
@@ -193,12 +197,13 @@
                         <ul>
                             <li>
                                 <span class="icon icon-bag"></span>
-                                <span class="summary--text" id="summItems">4 worki ubrań w dobrym stanie dla dzieci</span>
+                                <span class="summary--text" id="summQuantity"></span>
+                                <ul id="summCategories"></ul>
                             </li>
 
                             <li>
                                 <span class="icon icon-hand"></span>
-                                <span class="summary--text">Dla fundacji "<span id="summInstitution">Mam marzenie</span>" w Warszawie</span>
+                                <span class="summary--text" id="summInstitution">Nie wybrano instytucji</span>
                             </li>
                         </ul>
                     </div>
