@@ -71,9 +71,6 @@
     <sec:authorize access="isAnonymous()">
         <a href="/register" class="btn btn--large">Załóż konto</a>
     </sec:authorize>
-    <sec:authorize access="isAuthenticated()">
-        <a href="/donation/new" class="btn btn--large">Przekaż przedmioty</a>
-    </sec:authorize>
 
 </section>
 
