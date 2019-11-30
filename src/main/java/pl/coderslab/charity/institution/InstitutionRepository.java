@@ -7,4 +7,6 @@ import java.util.List;
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
 
     List<Institution> findFirst10ByOrderByIdAsc();
+
+    Institution findByName(String name);
 }

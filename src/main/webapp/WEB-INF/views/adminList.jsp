@@ -18,7 +18,7 @@
 <section>
     <div class="table--container">
         <h2>Dodaj administratora</h2>
-        <form:form modelAttribute="newUser" method="post" action="/admin/newAdmin">
+        <form:form modelAttribute="user" method="post" action="/admin/newAdmin">
             <div class="form-group">
                 <form:input path="firstName" placeholder="Imię"/>
                 <form:errors path="firstName" element="div" cssClass="formError"/>
@@ -66,8 +66,8 @@
                     <td>${admin.lastName}</td>
                     <td>${admin.email}</td>
                     <td>
-                        <a href="#" class="btn btn--small">Edytuj</a>
-                        <a href="#" class="btn btn--small">Usuń</a>
+                        <a href="/admin/edit/${admin.id}" class="btn btn--small">Edytuj</a>
+                        <a href="/admin/delete/${admin.id}" class="btn btn--small">Usuń</a>
                     </td>
                 </tr>
             </c:forEach>

@@ -37,10 +37,10 @@
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
                     <td>${user.email}</td>
-                    <td><a href="/admin/users/toggle/${user.id}" class="btn btn--small">${user.enabled == 1 ? 'TAK' : 'NIE'}</a></td>
+                    <td><a href="/admin/toggle/${user.id}" class="btn btn--small">${user.enabled == 1 ? 'TAK' : 'NIE'}</a></td>
                     <td>
-                        <a href="/admin/users/edit/${user.id}" class="btn btn--small">Edytuj</a>
-                        <a href="/admin/users/delete/${user.id}" class="btn btn--small">Usuń</a>
+                        <a href="/admin/edit/${user.id}" class="btn btn--small">Edytuj</a>
+                        <a href="/admin/delete/${user.id}" class="btn btn--small">Usuń</a>
                     </td>
                 </tr>
             </c:forEach>

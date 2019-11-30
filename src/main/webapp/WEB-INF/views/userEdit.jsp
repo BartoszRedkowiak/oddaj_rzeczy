@@ -26,6 +26,7 @@
             <form:errors path="email" element="div" cssClass="formError"/>
         </div>
         <div class="form-group form-group--buttons">
+            <input type="text" name="referer" value="${referer}" hidden>
             <button class="btn" type="submit">Zapisz</button>
         </div>
     </form:form>

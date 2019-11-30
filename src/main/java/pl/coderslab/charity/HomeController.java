@@ -70,7 +70,7 @@ public class HomeController {
             return "register";
         }
 
-        userService.create(user);
+        userService.create(user, "ROLE_USER");
         return "redirect:/";
     }
 

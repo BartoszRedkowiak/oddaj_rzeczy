@@ -3,6 +3,7 @@ package pl.coderslab.charity.institution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.FieldError;
 
 import java.util.List;
 
@@ -17,12 +18,32 @@ public class InstitutionService {
         this.institutionRepository = institutionRepository;
     }
 
-    public List<Institution> getAll(){
+    public List<Institution> getAll() {
         return institutionRepository.findAll();
     }
 
-    public List<Institution> getFirst10(){
+    public List<Institution> getFirst10() {
         return institutionRepository.findFirst10ByOrderByIdAsc();
+    }
+
+    public Institution findByName(String name) {
+        return institutionRepository.findByName(name);
+    }
+
+    public Institution findById(Long id) {
+        return institutionRepository.findById(id).orElse(null);
+    }
+
+    public void create(Institution institution) {
+        institutionRepository.save(institution);
+    }
+
+    public void deleteById(Long id) {
+        institutionRepository.deleteById(id);
+    }
+
+    public void update(Institution institution){
+        institutionRepository.save(institution);
     }
 
 }

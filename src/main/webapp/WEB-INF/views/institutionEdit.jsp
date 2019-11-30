@@ -17,8 +17,8 @@
 
 <section>
     <div class="table--container">
-        <h2>Dodaj instytucję</h2>
-        <form:form modelAttribute="institution" method="post" action="/admin/newInstitution">
+        <h2>Edytuj dane instytucji</h2>
+        <form:form modelAttribute="institution" method="post">
             <div class="form-group">
                 <form:input path="name" placeholder="Nazwa instytucji"/>
                 <form:errors path="name" element="div" cssClass="formError"/>
@@ -28,37 +28,9 @@
                 <form:errors path="description" element="div" cssClass="formError"/>
             </div>
             <div class="form-group form-group--buttons">
-                <button class="btn btn--small" type="submit">Dodaj</button>
+                <button class="btn btn--small" type="submit">Zapisz</button>
             </div>
         </form:form>
-    </div>
-    <div class="table--container">
-        <h2>Lista instytucji</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Id</th>
-                <th scope="col">Nazwa</th>
-                <th scope="col">Opis</th>
-                <th scope="col">Akcje</th>
-            </tr>
-            </thead>
-            <tbody class="table-striped table-borderless">
-            <c:forEach items="${institutions}" var="institution" varStatus="status">
-                <tr>
-                    <td scope="row">${status.index + 1}</td>
-                    <td>${institution.id}</td>
-                    <td>${institution.name}</td>
-                    <td>${institution.description}</td>
-                    <td>
-                        <a href="/admin/institutions/edit/${institution.id}" class="btn btn--small">Edytuj</a>
-                        <a href="/admin/institutions/delete/${institution.id}" class="btn btn--small">Usuń</a>
-                    </td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
     </div>
 </section>
 
