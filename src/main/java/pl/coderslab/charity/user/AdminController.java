@@ -4,6 +4,7 @@ import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -41,7 +42,12 @@ public class AdminController {
 
     @GetMapping("/delete/{id}")
     public String userDelete(@PathVariable Long id,
-                             @RequestHeader("Referer") String redirectUrl) {
+                             @RequestHeader("Referer") String redirectUrl,
+                             @AuthenticationPrincipal CurrentUser currentUser) {
+        User user = currentUser.getUser();
+        if (user.getId().equals(id)){
+            return "redirect:" + redirectUrl + "/?selfDeleteError=true";
+        }
         userService.deleteById(id);
         return "redirect:" + redirectUrl + "/?deleteSuccess=true";
     }
