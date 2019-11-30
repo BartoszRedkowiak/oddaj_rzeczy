@@ -11,6 +11,11 @@
                     <li><a href="#">Profil</a></li>
                     <li><a href="#">Ustawienia</a></li>
                     <li><a href="#">Moje zbiórki</a></li>
+                    <sec:authorize access="hasRole('ADMIN')">
+                    <li><a href="/admin/institutions">Zaufane instytucje</a></li>
+                    <li><a href="/admin/admins">Administratorzy</a></li>
+                    <li><a href="/admin/users">Użytkownicy</a></li>
+                    </sec:authorize>
                     <li><a href="/logout">Wyloguj</a></li>
                 </ul>
             </li>

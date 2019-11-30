@@ -34,7 +34,7 @@ public class DonationController {
         model.addAttribute("institutions", institutionService.getAll());
     }
 
-    @Secured("ROLE_USER")
+    @Secured({"ROLE_USER", "ROLE_ADMIN"})
     @GetMapping("/new")
     public String newDonationGetAction(Model model) {
         model.addAttribute("donation", new Donation());

@@ -58,7 +58,7 @@ public class HomeController {
 
         String secondPassInput = request.getParameter("password2");
 
-        User existingUser = userService.getByEmail(user.getEmail());
+        User existingUser = userService.findByEmail(user.getEmail());
         if (existingUser != null){
             result.addError(new FieldError("user", "email",
                     "Nie można zarejestrować konta na podany adres email"));

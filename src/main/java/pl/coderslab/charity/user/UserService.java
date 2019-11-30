@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 @Service
 @Transactional
@@ -31,6 +32,10 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public User getByEmail(String email){ return userRepository.findByEmail(email); }
+    public User findByEmail(String email){ return userRepository.findByEmail(email); }
+
+    public List<User> findAllBySpecificRole(String roleName){ return userRepository.findBySpecificRole(roleName); }
+
+
 
 }
