@@ -10,6 +10,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByEmail(String email);
 
+    Integer countAllByEmail(String email);
+
     @Query("SELECT u FROM User u JOIN u.roles r WHERE r.name = :roleName")
     List<User> findBySpecificRole(@Param("roleName") String roleName);
+
+
 }

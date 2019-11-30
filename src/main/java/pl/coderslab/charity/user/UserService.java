@@ -34,7 +34,30 @@ public class UserService {
 
     public User findByEmail(String email){ return userRepository.findByEmail(email); }
 
+    public Integer countByEmail(String email){ return userRepository.countAllByEmail(email); }
+
+    public User findById(Long id){ return userRepository.findById(id).orElse(null); }
+
     public List<User> findAllBySpecificRole(String roleName){ return userRepository.findBySpecificRole(roleName); }
+
+    public void deleteById(Long id){ userRepository.deleteById(id); }
+
+    public void update(User user){
+        User userToUpdate = findById(user.getId());
+        userToUpdate.setFirstName(user.getFirstName());
+        userToUpdate.setLastName(user.getLastName());
+        userToUpdate.setEmail(user.getEmail());
+        userRepository.save(userToUpdate);
+    }
+
+    public void toggleEnabled(Long id){
+        User user = findById(id);
+        if (user == null){
+            return;
+        }
+        user.setEnabled(Math.abs(user.getEnabled() - 1));
+        userRepository.save(user);
+    }
 
 
 
