@@ -8,11 +8,13 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Properties;
 
 @SpringBootApplication
-public class CharityApplication {
+public class CharityApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
         SpringApplication.run(CharityApplication.class, args);
@@ -33,6 +35,13 @@ public class CharityApplication {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry
+                .addResourceHandler("/webjars/**")
+                .addResourceLocations("/webjars/");
     }
 
 
