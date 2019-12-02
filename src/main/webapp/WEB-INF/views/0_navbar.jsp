@@ -6,7 +6,7 @@
         <sec:authorize access="isAuthenticated()">
             <li class="logged-user">
                 Witaj
-<%--                <sec:authentication property="email"/>--%>
+                <sec:authentication property="principal.user.firstName"/>
                 <ul class="dropdown">
                     <li><a href="#">Profil</a></li>
                     <li><a href="#">Ustawienia</a></li>
