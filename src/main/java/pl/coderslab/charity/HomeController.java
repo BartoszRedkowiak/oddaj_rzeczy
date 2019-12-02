@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.Validator;
 import org.springframework.web.bind.annotation.*;
 import pl.coderslab.charity.donation.DonationService;
 import pl.coderslab.charity.email.ContactInformation;
@@ -26,15 +25,13 @@ public class HomeController {
     private final DonationService donationService;
     private final UserService userService;
     private final EmailService emailService;
-    private final Validator validator;
 
     @Autowired
-    public HomeController(InstitutionService institutionService, DonationService donationService, UserService userService, EmailService emailService, Validator validator) {
+    public HomeController(InstitutionService institutionService, DonationService donationService, UserService userService, EmailService emailService) {
         this.institutionService = institutionService;
         this.donationService = donationService;
         this.userService = userService;
         this.emailService = emailService;
-        this.validator = validator;
     }
 
     @RequestMapping("/")
