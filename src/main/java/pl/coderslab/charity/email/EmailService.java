@@ -32,7 +32,7 @@ public class EmailService {
         mail.setFrom("oddajrzeczymailservice@gmail.com");
         mail.setTo(email);
 
-        if (token.getCodeType() == 1){
+        if (token.getTokenType() == 1){
             mail.setSubject("Link do aktywacji konta na portalu Oddaj Rzeczy");
             mail.setText("W celu aktywacji konta kliknij w link: \n" + url + "/account-activation?token=" + token.getToken());
         } else {

@@ -36,7 +36,7 @@ public class ControllerValidator {
             modelAndView.addObject("statusMessage", "Wprowadzony kod jest nieprawidłowy");
             return false;
         }
-        if ( token.getCodeType() == 2 && !LocalDateTime.now().isBefore(token.getCreated().plusMinutes(15))){
+        if ( token.getTokenType() == 2 && !LocalDateTime.now().isBefore(token.getCreated().plusMinutes(15))){
             modelAndView.addObject("statusMessage", "Wprowadzony kod wygasł i nie jest dłużej aktywny");
             return false;
         }

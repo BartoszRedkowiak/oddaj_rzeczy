@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.charity.user.User;
 
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -27,7 +26,7 @@ public class TokenService {
         //New token generation
         Token token = new Token();
         token.setUser(user);
-        token.setCodeType(type);
+        token.setTokenType(type);
         token.setToken(UUID.randomUUID().toString());
 
         create(token);
