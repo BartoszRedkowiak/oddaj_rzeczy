@@ -26,9 +26,14 @@ public class UserService {
 
     public void create(User user, String roleName) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setEnabled(1);
+        user.setEnabled(0);
         Role userRole = roleRepository.findByName(roleName);
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+        userRepository.save(user);
+    }
+
+    public void activateUser(User user){
+        user.setEnabled(1);
         userRepository.save(user);
     }
 

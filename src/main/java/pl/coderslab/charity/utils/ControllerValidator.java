@@ -1,7 +1,9 @@
 package pl.coderslab.charity.utils;
 
 import org.springframework.web.servlet.ModelAndView;
+import pl.coderslab.charity.verification.Token;
 
+import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
 public class ControllerValidator {
@@ -27,6 +29,18 @@ public class ControllerValidator {
             return false;
         }
         return true;
+    }
+
+    public static boolean validateToken(Token token, ModelAndView modelAndView){
+        if (token == null){
+            modelAndView.addObject("statusMessage", "Wprowadzony kod jest nieprawidłowy");
+            return false;
+        }
+        if ( token.getCodeType() == 2 && !LocalDateTime.now().isBefore(token.getCreated().plusMinutes(15))){
+            modelAndView.addObject("statusMessage", "Wprowadzony kod wygasł i nie jest dłużej aktywny");
+            return false;
+        }
+            return true;
     }
 
 

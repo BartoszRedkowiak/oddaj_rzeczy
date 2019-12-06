@@ -6,18 +6,15 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import pl.coderslab.charity.verification.Token;
-import pl.coderslab.charity.verification.TokenRepository;
 
 @Service
 public class EmailService {
 
     private final JavaMailSender javaMailSender;
-    private final TokenRepository codeRepository;
 
     @Autowired
-    public EmailService(JavaMailSender javaMailSender, TokenRepository codeRepository) {
+    public EmailService(JavaMailSender javaMailSender) {
         this.javaMailSender = javaMailSender;
-        this.codeRepository = codeRepository;
     }
 
     public void sendContactRequestEmail(ContactInformation information) throws MailException {
@@ -30,15 +27,20 @@ public class EmailService {
         javaMailSender.send(mail);
     }
 
-    public void sendPasswordResetCode(String email, Token code) throws MailException{
+    public void sendCode(String email, Token token, String url) throws MailException{
         SimpleMailMessage mail = new SimpleMailMessage();
         mail.setFrom("oddajrzeczymailservice@gmail.com");
         mail.setTo(email);
-        mail.setSubject("Reset hasła do konta na portalu Oddaj Rzeczy");
-        mail.setText("W celu zresetowania hasła kliknij w link: \n" + "http://localhost:8080/password-reset?token=" + code.getToken());
+
+        if (token.getCodeType() == 1){
+            mail.setSubject("Link do aktywacji konta na portalu Oddaj Rzeczy");
+            mail.setText("W celu aktywacji konta kliknij w link: \n" + url + "/account-activation?token=" + token.getToken());
+        } else {
+            mail.setSubject("Reset hasła do konta na portalu Oddaj Rzeczy");
+            mail.setText("W celu zresetowania hasła kliknij w link: \n" + url + "/password-reset?token=" + token.getToken());
+        }
 
         javaMailSender.send(mail);
     }
-
 
 }

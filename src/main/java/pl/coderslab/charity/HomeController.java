@@ -21,7 +21,6 @@ import pl.coderslab.charity.verification.TokenService;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.util.regex.Pattern;
 
 
 @Controller
@@ -62,29 +61,62 @@ public class HomeController {
     }
 
     @PostMapping("/register")
-    public String add(@Valid User user,
+    public ModelAndView add(@Valid User user,
                       BindingResult result,
+                      @RequestParam("password2") String secondPassInput,
+                      ModelAndView modelAndView,
                       HttpServletRequest request) {
-        if (result.hasErrors()) {
-            return "register";
-        }
+        modelAndView.setViewName("register");
 
-        String secondPassInput = request.getParameter("password2");
+        if (result.hasErrors()) {
+            return modelAndView;
+        }
 
         User existingUser = userService.findByEmail(user.getEmail());
         if (existingUser != null) {
             result.addError(new FieldError("user", "email",
                     "Nie można zarejestrować konta na podany adres email"));
-            return "register";
+            return modelAndView;
         }
         if (!user.getPassword().equals(secondPassInput)) {
             result.addError(new FieldError("user", "password",
                     "Podane hasła nie są zgodne"));
-            return "register";
+            return modelAndView;
         }
 
         userService.create(user, "ROLE_USER");
-        return "redirect:/";
+        Token token = tokenService.generateToken(user, (byte) 1);
+
+        String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        try {
+            emailService.sendCode(user.getEmail(), token, appUrl);
+        } catch (MailException e) {
+            modelAndView.addObject("errorMessage", "Wystąpił problem podczas rejestracji konta");
+            return modelAndView;
+        }
+        modelAndView.addObject("statusMessage", "Na adres email wysłano wiadomość z linkiem aktywacyjnym");
+        modelAndView.setViewName("status-message");
+        return modelAndView;
+    }
+
+    @GetMapping("/account-activation")
+    public ModelAndView accountActivation(@RequestParam("token") String requestToken,
+                                          ModelAndView modelAndView){
+        modelAndView.setViewName("status-message");
+        Token dbToken = tokenService.findOneByTokenAndType(requestToken, (byte) 1);
+        boolean tokenTest = ControllerValidator.validateToken(dbToken, modelAndView);
+        if (!tokenTest){
+            return modelAndView;
+        }
+        User user = userService.findByToken(requestToken);
+        if (user == null){
+            modelAndView.addObject("statusMessage", "Błąd podczas próby aktywacji");
+            return modelAndView;
+        }
+        userService.activateUser(user);
+        tokenService.delete(dbToken.getId());
+        modelAndView.addObject("statusMessage", "Aktywacja konta zakończona pomyślnie");
+        return modelAndView;
     }
 
     @PostMapping("/contact")
@@ -105,7 +137,8 @@ public class HomeController {
 
     @PostMapping("/forgot-password")
     public ModelAndView passwordRecoveryMailGeneration(@RequestParam("email") String email,
-                                                 ModelAndView modelAndView) {
+                                                       ModelAndView modelAndView,
+                                                       HttpServletRequest request) {
 
         modelAndView.setViewName("status-message");
         modelAndView.addObject("statusMessage", "Na podany adres wysłano email z linkiem do zmiany hasła");
@@ -121,9 +154,10 @@ public class HomeController {
         }
 
         Token code = tokenService.generateToken(user, (byte) 2);
+        String appUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 
         try {
-            emailService.sendPasswordResetCode(email, code);
+            emailService.sendCode(email, code, appUrl);
         } catch (MailException e) {
             modelAndView.addObject("errorMessage", "Wystąpił problem podczas próby dostarczenia wiadomości");
             modelAndView.setViewName("email-form");
@@ -133,19 +167,16 @@ public class HomeController {
     }
 
     @GetMapping("/password-reset")
-    public ModelAndView setPasswordEditView(@RequestParam("token") String token,
+    public ModelAndView setPasswordEditView(@RequestParam("token") String requestToken,
                                            ModelAndView modelAndView){
-        Token code = tokenService.findOneByTokenAndType(token, (byte) 2);
+        Token dbToken = tokenService.findOneByTokenAndType(requestToken, (byte) 2);
         modelAndView.setViewName("status-message");
-        if (code == null){
-            modelAndView.addObject("statusMessage", "Link do zresetowania hasła jest nieprawidłowy lub wygasł");
+        boolean tokenTest = ControllerValidator.validateToken(dbToken, modelAndView);
+        if (!tokenTest){
             return modelAndView;
-        } else if (!LocalDateTime.now().isBefore(code.getCreated().plusMinutes(15))){
-            modelAndView.addObject("statusMessage", "Link do zresetowania hasła jest nieprawidłowy lub wygasł");
-            return modelAndView;
-        } else {
-            modelAndView.addObject("token", token);
         }
+        modelAndView.addObject("token", dbToken);
+
         modelAndView.setViewName("password-edit");
         return modelAndView;
     }
