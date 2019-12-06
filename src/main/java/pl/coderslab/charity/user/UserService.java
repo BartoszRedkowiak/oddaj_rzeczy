@@ -42,12 +42,17 @@ public class UserService {
 
     public void deleteById(Long id){ userRepository.deleteById(id); }
 
-    public void update(User user){
-        User userToUpdate = findById(user.getId());
-        userToUpdate.setFirstName(user.getFirstName());
-        userToUpdate.setLastName(user.getLastName());
-        userToUpdate.setEmail(user.getEmail());
+    public void updateCredentials(User updatedData){
+        User userToUpdate = findById(updatedData.getId());
+        userToUpdate.setFirstName(updatedData.getFirstName());
+        userToUpdate.setLastName(updatedData.getLastName());
+        userToUpdate.setEmail(updatedData.getEmail());
         userRepository.save(userToUpdate);
+    }
+
+    public void updatePassword(User user, String password){
+        user.setPassword(passwordEncoder.encode(password));
+        userRepository.save(user);
     }
 
     public void toggleEnabled(Long id){
@@ -59,6 +64,6 @@ public class UserService {
         userRepository.save(user);
     }
 
-
+    public User findByToken(String token) { return userRepository.findByToken(token); }
 
 }

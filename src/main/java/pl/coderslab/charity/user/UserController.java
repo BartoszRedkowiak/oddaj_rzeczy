@@ -6,7 +6,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.coderslab.charity.email.ContactInformation;
 
 
 @Controller
@@ -24,8 +26,11 @@ public class UserController {
     public String editGetAction(Model model,
                                 @AuthenticationPrincipal CurrentUser customUser){
         model.addAttribute("user", customUser.getUser());
-        return "userSettings";
+        return "user-settings";
     }
+
+    @ModelAttribute("contactInformation")
+    public ContactInformation setModelContactInformation(){ return new ContactInformation();}
 
 
 }

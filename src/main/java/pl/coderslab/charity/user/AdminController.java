@@ -15,7 +15,6 @@ import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import javax.validation.constraints.Null;
 import java.util.List;
 
 @Secured("ROLE_ADMIN")
@@ -37,7 +36,7 @@ public class AdminController {
     public String usersListGetAction(Model model) {
         List<User> users = userService.findAllBySpecificRole("ROLE_USER");
         model.addAttribute("users", users);
-        return "userList";
+        return "user-list";
     }
 
     @GetMapping("/delete/{id}")
@@ -62,7 +61,7 @@ public class AdminController {
         }
         model.addAttribute("user", user);
         model.addAttribute("referer", referer);
-        return "userEdit";
+        return "user-edit";
     }
 
     @PostMapping("/edit/{id}")
@@ -70,11 +69,11 @@ public class AdminController {
                                       BindingResult result,
                                       HttpServletRequest request) {
         if (result.hasErrors()) {
-            return "userEdit";
+            return "user-edit";
         }
         //Check for constraint violation
         try{
-            userService.update(user);
+            userService.updateCredentials(user);
         } catch (DataIntegrityViolationException e){
             result.addError(new FieldError("user", "email", "Nie można przypisać do konta podanego adresu email"));
             return "userEdit";
@@ -95,7 +94,7 @@ public class AdminController {
         List<User> admins = userService.findAllBySpecificRole("ROLE_ADMIN");
         model.addAttribute("user", new User());
         model.addAttribute("admins", admins);
-        return "adminList";
+        return "admin-list";
     }
 
     @PostMapping("/newAdmin")
@@ -103,7 +102,7 @@ public class AdminController {
                                       BindingResult result,
                                       HttpServletRequest request) {
         if (result.hasErrors()) {
-            return "adminList";
+            return "admin-list";
         }
 
         String secondPassInput = request.getParameter("password2");
@@ -111,7 +110,7 @@ public class AdminController {
         if (!user.getPassword().equals(secondPassInput)) {
             result.addError(new FieldError("user", "password",
                     "Podane hasła nie są zgodne"));
-            return "adminList";
+            return "admin-list";
         }
 
         try{
@@ -129,14 +128,14 @@ public class AdminController {
     public String institutionListGetAction(Model model) {
         model.addAttribute("institution", new Institution());
         model.addAttribute("institutions", institutionService.getAll());
-        return "institutionList";
+        return "institution-list";
     }
 
     @PostMapping("/newInstitution")
     public String registerInstitutionAction(@Valid Institution institution,
                                             BindingResult result) {
         if (result.hasErrors()) {
-            return "institutionList";
+            return "institution-list";
         }
 
         try {
@@ -163,14 +162,14 @@ public class AdminController {
             return "redirect:../?institutionExist=false";
         }
         model.addAttribute("institution", institution);
-        return "institutionEdit";
+        return "institution-edit";
     }
 
     @PostMapping("/institutions/edit/{id}")
     public String editInstitutionPostAction(@Valid Institution institution,
                                             BindingResult result) {
         if (result.hasErrors()) {
-            return "institutionEdit";
+            return "institution-edit";
         }
         try{
             institutionService.update(institution);

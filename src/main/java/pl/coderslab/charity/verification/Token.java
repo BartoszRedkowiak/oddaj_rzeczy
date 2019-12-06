@@ -7,19 +7,20 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name = "uuid_codes")
-public class VerificationUUIDCode {
+@Table(name = "tokens")
+public class Token {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private UUID uuid;
+    private String token;
     private LocalDateTime created;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
     private Byte codeType; // 1 - registration code; 2 - password reset code;
+
 
     @PrePersist
     public void prePersist(){ created = LocalDateTime.now(); }
@@ -32,12 +33,12 @@ public class VerificationUUIDCode {
         this.id = id;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public String getToken() {
+        return token;
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public LocalDateTime getCreated() {
@@ -55,4 +56,14 @@ public class VerificationUUIDCode {
     public void setCodeType(Byte codeType) {
         this.codeType = codeType;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
+
+

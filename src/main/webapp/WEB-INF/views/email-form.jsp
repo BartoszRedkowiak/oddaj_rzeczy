@@ -11,8 +11,8 @@
 </header>
 
 <section class="login-page">
-    <h2>Podaj adres email w celu odzyskania hasłą</h2>
-    <form method="post" action="/forgot-password">
+    <h2>Podaj adres email w celu odzyskania hasła</h2>
+    <form method="post">
         <div class="form-group">
             <input type="email" name="email" placeholder="Email" />
         </div>

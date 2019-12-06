@@ -2,6 +2,7 @@ package pl.coderslab.charity.user;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.coderslab.charity.verification.Token;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -37,6 +38,9 @@ public class User {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Token> tokens;
 
     public Long getId() {
         return id;
@@ -94,5 +98,12 @@ public class User {
         this.roles = roles;
     }
 
+    public Set<Token> getTokens() {
+        return tokens;
+    }
+
+    public void setTokens(Set<Token> tokens) {
+        this.tokens = tokens;
+    }
 }
 

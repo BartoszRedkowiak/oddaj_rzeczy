@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import pl.coderslab.charity.category.CategoryService;
+import pl.coderslab.charity.email.ContactInformation;
 import pl.coderslab.charity.institution.InstitutionService;
 
 import javax.validation.Valid;
@@ -54,6 +55,9 @@ public class DonationController {
         donationService.createDonation(donation);
         return "form-confirmation";
     }
+
+    @ModelAttribute("contactInformation")
+    public ContactInformation setModelContactInformation(){ return new ContactInformation();}
 
 
 }
