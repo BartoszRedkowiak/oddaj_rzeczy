@@ -40,7 +40,7 @@ public class DonationController {
     public String newDonationGetAction(Model model) {
         model.addAttribute("donation", new Donation());
         addDonationAttributes(model);
-        return "form";
+        return "donation-form";
     }
 
     @PostMapping("/new")
@@ -49,7 +49,7 @@ public class DonationController {
                                         Model model) {
         if (result.hasErrors()) {
             addDonationAttributes(model);
-            return "form";
+            return "donation-form";
         }
 
         donationService.createDonation(donation);

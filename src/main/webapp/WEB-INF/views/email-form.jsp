@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="pl">
@@ -15,11 +16,15 @@
     <form method="post">
         <div class="form-group">
             <input type="email" name="email" placeholder="Email" />
+            <div class="formError">${emailPatternError}</div>
         </div>
         <div class="form-group form-group--buttons">
             <button class="btn" type="submit">Wyślij</button>
         </div>
     </form>
+    <c:if test="${not empty errorMessage}">
+        <div class="formError">${errorMessage}</div>
+    </c:if>
 </section>
 
 <jsp:include page="0_footer.jsp"/>
