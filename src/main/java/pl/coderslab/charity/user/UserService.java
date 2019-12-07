@@ -26,14 +26,14 @@ public class UserService {
 
     public void create(User user, String roleName) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setEnabled(0);
+        user.setEnabled(false);
         Role userRole = roleRepository.findByName(roleName);
         user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         userRepository.save(user);
     }
 
     public void activateUser(User user){
-        user.setEnabled(1);
+        user.setEnabled(true);
         userRepository.save(user);
     }
 
@@ -65,7 +65,7 @@ public class UserService {
         if (user == null){
             return;
         }
-        user.setEnabled(Math.abs(user.getEnabled() - 1));
+        user.setEnabled(!user.getEnabled());
         userRepository.save(user);
     }
 

@@ -32,7 +32,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    private Integer enabled;
+    private Boolean enabled;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"),
@@ -82,14 +82,6 @@ public class User {
         this.password = password;
     }
 
-    public Integer getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Integer enabled) {
-        this.enabled = enabled;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -104,6 +96,14 @@ public class User {
 
     public void setTokens(Set<Token> tokens) {
         this.tokens = tokens;
+    }
+
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 }
 

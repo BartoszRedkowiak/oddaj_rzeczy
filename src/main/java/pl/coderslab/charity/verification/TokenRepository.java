@@ -9,10 +9,10 @@ public interface TokenRepository extends JpaRepository<Token, Long> {
 
     Token findByToken(String token);
 
-    Token findByTokenAndCodeType(String token, Byte type);
+    Token findByTokenAndTokenType(String token, Byte type);
 
     void removeByToken(String token);
 
-    Token findByCodeType(Byte type);
+    Token findByTokenType(Byte type);
 
 }

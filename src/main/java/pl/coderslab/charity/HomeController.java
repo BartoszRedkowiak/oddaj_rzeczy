@@ -20,7 +20,6 @@ import pl.coderslab.charity.verification.TokenService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 
 
 @Controller

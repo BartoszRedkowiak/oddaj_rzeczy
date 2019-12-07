@@ -19,7 +19,7 @@ public class TokenService {
 
     public Token generateToken(User user, Byte type){
         //Test for same type token existence
-        Token existingToken = tokenRepository.findByCodeType(type);
+        Token existingToken = tokenRepository.findByTokenType(type);
         if (existingToken != null){
             tokenRepository.delete(existingToken);
         }
@@ -38,7 +38,7 @@ public class TokenService {
     }
 
     public Token findOneByTokenAndType(String token, Byte type){
-         return  tokenRepository.findByTokenAndCodeType(token, type);
+         return  tokenRepository.findByTokenAndTokenType(token, type);
     }
 
     public void deleteToken (String token){
