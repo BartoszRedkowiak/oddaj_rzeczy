@@ -3,7 +3,6 @@ package pl.coderslab.charity.institution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.FieldError;
 
 import java.util.List;
 

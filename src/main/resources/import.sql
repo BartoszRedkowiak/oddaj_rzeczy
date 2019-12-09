@@ -1,0 +1,13 @@
+INSERT INTO charity_donation.category (id, name) VALUES (1, 'ubrania, które nadają się do ponownego użycia');
+INSERT INTO charity_donation.category (id, name) VALUES (2, 'ubrania, do wyrzucenia');
+INSERT INTO charity_donation.category (id, name) VALUES (3, 'zabawki');
+INSERT INTO charity_donation.category (id, name) VALUES (4, 'książki');
+INSERT INTO charity_donation.category (id, name) VALUES (5, 'inne');
+INSERT INTO charity_donation.institution (id, description, name) VALUES (1, 'Pomoc dzieciom z ubogich rodzin', 'Dbam o zdrowie');
+INSERT INTO charity_donation.institution (id, description, name) VALUES (2, 'Pomoc osobom znajdującym się w trudnej sytuacji życiowej', 'Dla dzieci');
+INSERT INTO charity_donation.institution (id, description, name) VALUES (3, 'Pomoc w wybudzaniu dzieci ze śpiączki', 'A kogo');
+INSERT INTO charity_donation.institution (id, description, name) VALUES (4, 'Pomoc dla osób nie posiadających miejsca zamieszkania', 'Bez domu');
+INSERT INTO charity_donation.role (id, name) VALUES (1, 'ROLE_USER');
+INSERT INTO charity_donation.role (id, name) VALUES (2, 'ROLE_ADMIN');
+INSERT INTO charity_donation.user (id, email, enabled, first_name, last_name, password) VALUES (1, 'admin@admin.pl', 1, 'Admin', 'Admin', '$2a$10$vHCfXNFeXcsW3/q2QZ0mWORiikWrEzWio3wYTb39.aceu2Kul5Noy');
+INSERT INTO charity_donation.user_role (user_id, role_id) VALUES (1, 2);

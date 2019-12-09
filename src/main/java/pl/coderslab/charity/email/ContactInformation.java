@@ -2,7 +2,6 @@ package pl.coderslab.charity.email;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.time.LocalDateTime;
 
 public class ContactInformation {
 
