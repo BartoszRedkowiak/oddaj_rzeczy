@@ -12,7 +12,7 @@ a main purpose of learning Spring framework.
 - MySQL database
 
 ## Setup
-1. Create local mySQL database and pass connection information (url, username, password) into `application.properties` (lines 2-4). 
+1. Create local mySQL database and configure connection information (url, username, password) in `application.properties` (lines 2-4). 
 2. Configure desired SMTP server configuration in `application.properties` (lines 15-20). 
 2. Execute `CharityApplication` class main method
 
