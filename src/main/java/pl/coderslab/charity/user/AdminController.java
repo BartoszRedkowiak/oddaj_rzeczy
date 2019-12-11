@@ -72,7 +72,7 @@ public class AdminController {
             return "user-edit";
         }
         //Check for constraint violation
-        try{
+        try {
             userService.updateCredentials(user);
         } catch (DataIntegrityViolationException e){
             result.addError(new FieldError("user", "email", "Nie można przypisać do konta podanego adresu email"));

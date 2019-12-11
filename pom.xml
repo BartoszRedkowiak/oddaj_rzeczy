@@ -12,6 +12,7 @@
     <artifactId>charity</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>charity</name>
+    <packaging>war</packaging>
     <description>Charity project, created with love in CodersLab</description>
 
     <properties>
@@ -99,5 +100,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>
